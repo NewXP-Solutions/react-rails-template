@@ -17,4 +17,10 @@ export const SIDENAV_LINKS = [
     to: "/settings",
     icon: Settings,
   },
+  {
+    label: "Dashboard home",
+    to: "/dashboard/home",
+    icon: Settings,
+  },
+
 ];

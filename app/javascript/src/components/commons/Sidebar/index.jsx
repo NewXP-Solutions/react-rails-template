@@ -1,66 +1,36 @@
-import React from "react";
+import React from 'react'
+import { Home, Send, Repeat, CreditCard, Settings, HelpCircle, LogOut } from "lucide-react"
 
-import { Sidebar as NeetoUISidebar } from "neetoui/layouts";
-import { useHistory } from "react-router-dom";
-
-import authenticationApi from "apis/authentication";
-import {
-  PROFILE_PATH,
-  CHANGE_PASSWORD_PATH,
-  LOGIN_PATH,
-} from "components/routeConstants";
-import { useAuthDispatch } from "contexts/auth";
-import { useUserState } from "contexts/user";
-
-import { APP_NAME, SIDENAV_LINKS } from "./constants";
-
-const Sidebar = () => {
-  const history = useHistory();
-  const authDispatch = useAuthDispatch();
-  const { user } = useUserState();
-
-  const handleLogout = async () => {
-    try {
-      await authenticationApi.logout();
-      authDispatch({ type: "LOGOUT" });
-      window.location.href = LOGIN_PATH;
-    } catch (error) {
-      logger.error(error);
-    }
-  };
-
-  const bottomLinks = [
-    {
-      label: "My profile",
-      onClick: () => history.push(PROFILE_PATH, { resetTab: true }),
-    },
-    {
-      label: "Change password",
-      onClick: () => history.push(CHANGE_PASSWORD_PATH, { resetTab: true }),
-    },
-    {
-      label: "Logout",
-      onClick: handleLogout,
-    },
-  ];
+export default function Sidebar() {
+  const menuItems = [
+    { icon: Home, label: "Dashboard" },
+    { icon: Send, label: "Send" },
+    { icon: Repeat, label: "Exchange" },
+    { icon: CreditCard, label: "Cards" },
+    { icon: Settings, label: "Settings" },
+    { icon: HelpCircle, label: "Help" },
+  ]
 
   return (
-    <NeetoUISidebar
-      appName={APP_NAME}
-      changelogProps={{ id: "neetochangelog-trigger" }}
-      navLinks={SIDENAV_LINKS}
-      organizationInfo={{
-        name: "Wheel",
-        subdomain: "bigbinary.com",
-      }}
-      profileInfo={{
-        name: `${user.first_name} ${user.last_name}`,
-        imageUrl: user.profile_image_path,
-        email: user.email,
-        bottomLinks,
-      }}
-    />
-  );
-};
-
-export default Sidebar;
+    <aside className="bg-primary text-primary-foreground w-full md:w-64 min-h-screen p-4 fixed md:static bottom-0 left-0 right-0 md:min-h-0">
+      <nav className="md:block">
+        <ul className="flex md:flex-col justify-around md:justify-start">
+          {menuItems.map((item, index) => (
+            <li key={index} className="mb-0 md:mb-4">
+              <a href="#" className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-2 p-2 rounded hover:bg-primary-foreground hover:text-primary">
+                <item.icon size={20} />
+                <span className="text-xs md:text-base">{item.label}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className="hidden md:block mt-auto pt-4 border-t border-primary-foreground">
+        <a href="#" className="flex items-center space-x-2 p-2 rounded hover:bg-primary-foreground hover:text-primary">
+          <LogOut size={20} />
+          <span>Logout</span>
+        </a>
+      </div>
+    </aside>
+  )
+}
