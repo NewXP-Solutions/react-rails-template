@@ -64,7 +64,9 @@ Rails.application.configure do
   # Raises error for missing translations.
   config.i18n.raise_on_missing_translations = true
 
-  config.webpacker.dev_server.port = 8014
+  # config.webpacker.dev_server.port = 8014
+
+  config.hosts << /\A[*a-zA-Z0-9\-\_]+\.*.*\z|\A*.*\z/
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true

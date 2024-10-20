@@ -1,6 +1,6 @@
 import { Notes, Settings } from "neetoicons";
 
-export const APP_NAME = "Wheel";
+export const APP_NAME = "Remittance";
 
 export const PASSWORD_PATH = "/my/password/edit";
 export const PROFILE_PATH = "/my/profile";
@@ -22,5 +22,4 @@ export const SIDENAV_LINKS = [
     to: "/dashboard/home",
     icon: Settings,
   },
-
 ];
